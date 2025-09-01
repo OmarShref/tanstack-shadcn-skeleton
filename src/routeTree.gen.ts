@@ -13,7 +13,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as sidebarSidebarRouteImport } from './routes/(sidebar)/_sidebar'
 import { Route as sidebarSidebarSettingsRouteImport } from './routes/(sidebar)/_sidebar.settings'
-import { Route as sidebarSidebarDashboardRouteImport } from './routes/(sidebar)/_sidebar.dashboard'
+import { Route as sidebarSidebarAtomsRouteImport } from './routes/(sidebar)/_sidebar.atoms'
 
 const sidebarRouteImport = createFileRoute('/(sidebar)')()
 
@@ -30,39 +30,39 @@ const sidebarSidebarSettingsRoute = sidebarSidebarSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => sidebarSidebarRoute,
 } as any)
-const sidebarSidebarDashboardRoute = sidebarSidebarDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const sidebarSidebarAtomsRoute = sidebarSidebarAtomsRouteImport.update({
+  id: '/atoms',
+  path: '/atoms',
   getParentRoute: () => sidebarSidebarRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof sidebarSidebarRouteWithChildren
-  '/dashboard': typeof sidebarSidebarDashboardRoute
+  '/atoms': typeof sidebarSidebarAtomsRoute
   '/settings': typeof sidebarSidebarSettingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof sidebarSidebarRouteWithChildren
-  '/dashboard': typeof sidebarSidebarDashboardRoute
+  '/atoms': typeof sidebarSidebarAtomsRoute
   '/settings': typeof sidebarSidebarSettingsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/(sidebar)': typeof sidebarRouteWithChildren
   '/(sidebar)/_sidebar': typeof sidebarSidebarRouteWithChildren
-  '/(sidebar)/_sidebar/dashboard': typeof sidebarSidebarDashboardRoute
+  '/(sidebar)/_sidebar/atoms': typeof sidebarSidebarAtomsRoute
   '/(sidebar)/_sidebar/settings': typeof sidebarSidebarSettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/settings'
+  fullPaths: '/' | '/atoms' | '/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/settings'
+  to: '/' | '/atoms' | '/settings'
   id:
     | '__root__'
     | '/(sidebar)'
     | '/(sidebar)/_sidebar'
-    | '/(sidebar)/_sidebar/dashboard'
+    | '/(sidebar)/_sidebar/atoms'
     | '/(sidebar)/_sidebar/settings'
   fileRoutesById: FileRoutesById
 }
@@ -93,23 +93,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof sidebarSidebarSettingsRouteImport
       parentRoute: typeof sidebarSidebarRoute
     }
-    '/(sidebar)/_sidebar/dashboard': {
-      id: '/(sidebar)/_sidebar/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof sidebarSidebarDashboardRouteImport
+    '/(sidebar)/_sidebar/atoms': {
+      id: '/(sidebar)/_sidebar/atoms'
+      path: '/atoms'
+      fullPath: '/atoms'
+      preLoaderRoute: typeof sidebarSidebarAtomsRouteImport
       parentRoute: typeof sidebarSidebarRoute
     }
   }
 }
 
 interface sidebarSidebarRouteChildren {
-  sidebarSidebarDashboardRoute: typeof sidebarSidebarDashboardRoute
+  sidebarSidebarAtomsRoute: typeof sidebarSidebarAtomsRoute
   sidebarSidebarSettingsRoute: typeof sidebarSidebarSettingsRoute
 }
 
 const sidebarSidebarRouteChildren: sidebarSidebarRouteChildren = {
-  sidebarSidebarDashboardRoute: sidebarSidebarDashboardRoute,
+  sidebarSidebarAtomsRoute: sidebarSidebarAtomsRoute,
   sidebarSidebarSettingsRoute: sidebarSidebarSettingsRoute,
 }
 

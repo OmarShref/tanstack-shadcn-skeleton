@@ -1,3 +1,4 @@
+import { SidebarLayout } from "@/components/templates/sidebar-layout";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(sidebar)/_sidebar")({
@@ -6,8 +7,8 @@ export const Route = createFileRoute("/(sidebar)/_sidebar")({
 
 function RouteComponent() {
   return (
-    <>
+    <SidebarLayout>
       <Outlet />
-    </>
+    </SidebarLayout>
   );
 }
