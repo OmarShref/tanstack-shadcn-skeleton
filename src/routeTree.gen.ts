@@ -8,93 +8,128 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as HeaderRouteImport } from './routes/_header'
-import { Route as HeaderIndexRouteImport } from './routes/_header.index'
-import { Route as HeaderAboutRouteImport } from './routes/_header.about'
+import { createFileRoute } from '@tanstack/react-router'
 
-const HeaderRoute = HeaderRouteImport.update({
-  id: '/_header',
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as sidebarSidebarRouteImport } from './routes/(sidebar)/_sidebar'
+import { Route as sidebarSidebarSettingsRouteImport } from './routes/(sidebar)/_sidebar.settings'
+import { Route as sidebarSidebarDashboardRouteImport } from './routes/(sidebar)/_sidebar.dashboard'
+
+const sidebarRouteImport = createFileRoute('/(sidebar)')()
+
+const sidebarRoute = sidebarRouteImport.update({
+  id: '/(sidebar)',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HeaderIndexRoute = HeaderIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => HeaderRoute,
+const sidebarSidebarRoute = sidebarSidebarRouteImport.update({
+  id: '/_sidebar',
+  getParentRoute: () => sidebarRoute,
 } as any)
-const HeaderAboutRoute = HeaderAboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => HeaderRoute,
+const sidebarSidebarSettingsRoute = sidebarSidebarSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => sidebarSidebarRoute,
+} as any)
+const sidebarSidebarDashboardRoute = sidebarSidebarDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => sidebarSidebarRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/about': typeof HeaderAboutRoute
-  '/': typeof HeaderIndexRoute
+  '/': typeof sidebarSidebarRouteWithChildren
+  '/dashboard': typeof sidebarSidebarDashboardRoute
+  '/settings': typeof sidebarSidebarSettingsRoute
 }
 export interface FileRoutesByTo {
-  '/about': typeof HeaderAboutRoute
-  '/': typeof HeaderIndexRoute
+  '/': typeof sidebarSidebarRouteWithChildren
+  '/dashboard': typeof sidebarSidebarDashboardRoute
+  '/settings': typeof sidebarSidebarSettingsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_header': typeof HeaderRouteWithChildren
-  '/_header/about': typeof HeaderAboutRoute
-  '/_header/': typeof HeaderIndexRoute
+  '/(sidebar)': typeof sidebarRouteWithChildren
+  '/(sidebar)/_sidebar': typeof sidebarSidebarRouteWithChildren
+  '/(sidebar)/_sidebar/dashboard': typeof sidebarSidebarDashboardRoute
+  '/(sidebar)/_sidebar/settings': typeof sidebarSidebarSettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/about' | '/'
+  fullPaths: '/' | '/dashboard' | '/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/'
-  id: '__root__' | '/_header' | '/_header/about' | '/_header/'
+  to: '/' | '/dashboard' | '/settings'
+  id:
+    | '__root__'
+    | '/(sidebar)'
+    | '/(sidebar)/_sidebar'
+    | '/(sidebar)/_sidebar/dashboard'
+    | '/(sidebar)/_sidebar/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  HeaderRoute: typeof HeaderRouteWithChildren
+  sidebarRoute: typeof sidebarRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_header': {
-      id: '/_header'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof HeaderRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_header/': {
-      id: '/_header/'
+    '/(sidebar)': {
+      id: '/(sidebar)'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof HeaderIndexRouteImport
-      parentRoute: typeof HeaderRoute
+      preLoaderRoute: typeof sidebarRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_header/about': {
-      id: '/_header/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof HeaderAboutRouteImport
-      parentRoute: typeof HeaderRoute
+    '/(sidebar)/_sidebar': {
+      id: '/(sidebar)/_sidebar'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof sidebarSidebarRouteImport
+      parentRoute: typeof sidebarRoute
+    }
+    '/(sidebar)/_sidebar/settings': {
+      id: '/(sidebar)/_sidebar/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof sidebarSidebarSettingsRouteImport
+      parentRoute: typeof sidebarSidebarRoute
+    }
+    '/(sidebar)/_sidebar/dashboard': {
+      id: '/(sidebar)/_sidebar/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof sidebarSidebarDashboardRouteImport
+      parentRoute: typeof sidebarSidebarRoute
     }
   }
 }
 
-interface HeaderRouteChildren {
-  HeaderAboutRoute: typeof HeaderAboutRoute
-  HeaderIndexRoute: typeof HeaderIndexRoute
+interface sidebarSidebarRouteChildren {
+  sidebarSidebarDashboardRoute: typeof sidebarSidebarDashboardRoute
+  sidebarSidebarSettingsRoute: typeof sidebarSidebarSettingsRoute
 }
 
-const HeaderRouteChildren: HeaderRouteChildren = {
-  HeaderAboutRoute: HeaderAboutRoute,
-  HeaderIndexRoute: HeaderIndexRoute,
+const sidebarSidebarRouteChildren: sidebarSidebarRouteChildren = {
+  sidebarSidebarDashboardRoute: sidebarSidebarDashboardRoute,
+  sidebarSidebarSettingsRoute: sidebarSidebarSettingsRoute,
 }
 
-const HeaderRouteWithChildren =
-  HeaderRoute._addFileChildren(HeaderRouteChildren)
+const sidebarSidebarRouteWithChildren = sidebarSidebarRoute._addFileChildren(
+  sidebarSidebarRouteChildren,
+)
+
+interface sidebarRouteChildren {
+  sidebarSidebarRoute: typeof sidebarSidebarRouteWithChildren
+}
+
+const sidebarRouteChildren: sidebarRouteChildren = {
+  sidebarSidebarRoute: sidebarSidebarRouteWithChildren,
+}
+
+const sidebarRouteWithChildren =
+  sidebarRoute._addFileChildren(sidebarRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
-  HeaderRoute: HeaderRouteWithChildren,
+  sidebarRoute: sidebarRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
