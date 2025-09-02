@@ -37,6 +37,47 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../atoms/carousel";
+import {
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+  type ChartConfig,
+} from "../atoms/chart";
+import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
+  XAxis,
+  YAxis,
+} from "recharts";
+
+const chartData = [
+  { month: "January", desktop: 186, mobile: 80 },
+  { month: "February", desktop: 305, mobile: 200 },
+  { month: "March", desktop: 237, mobile: 120 },
+  { month: "April", desktop: 73, mobile: 190 },
+  { month: "May", desktop: 209, mobile: 130 },
+  { month: "June", desktop: 214, mobile: 140 },
+].map((d) => ({ ...d, total: d.desktop + d.mobile }));
+
+const chartConfig = {
+  desktop: {
+    label: "Desktop",
+    color: "#2563eb",
+  },
+  mobile: {
+    label: "Mobile",
+    color: "#60a5fa",
+  },
+} satisfies ChartConfig;
 
 export function AtomsPage() {
   return (
@@ -278,7 +319,7 @@ export function AtomsPage() {
         <CardContent className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <div className="grid grid-cols-1 gap-2">
             <CardDescription>horizontal arrows out</CardDescription>
-            <div className="grid grid-cols-1 gap-2">
+            <div>
               <Carousel className="mx-12 h-fit" opts={{ align: "center" }}>
                 <CarouselContent className="-ms-10">
                   {Array.from({ length: 5 }).map((_, index) => (
@@ -301,7 +342,7 @@ export function AtomsPage() {
 
           <div className="grid grid-cols-1 gap-2">
             <CardDescription>horizontal arrows in</CardDescription>
-            <div className="grid grid-cols-1 gap-2">
+            <div>
               <Carousel
                 opts={{
                   align: "start",
@@ -328,7 +369,7 @@ export function AtomsPage() {
 
           <div className="grid grid-cols-1 gap-2">
             <CardDescription>vertical arrows out</CardDescription>
-            <div className="grid grid-cols-1 gap-2">
+            <div>
               <Carousel orientation="vertical" className="my-12">
                 <CarouselContent className="h-[300px]">
                   {Array.from({ length: 5 }).map((_, index) => (
@@ -351,7 +392,7 @@ export function AtomsPage() {
 
           <div className="grid grid-cols-1 content-center gap-2">
             <CardDescription>vertical arrows out</CardDescription>
-            <div className="grid grid-cols-1 gap-2">
+            <div>
               <Carousel orientation="vertical">
                 <CarouselContent className="h-[350px]">
                   {Array.from({ length: 5 }).map((_, index) => (
@@ -369,6 +410,154 @@ export function AtomsPage() {
                 <CarouselPrevious className="top-4" />
                 <CarouselNext className="bottom-4" />
               </Carousel>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* chart */}
+      <Card className="col-span-12">
+        <CardHeader>
+          <CardTitle>Chart</CardTitle>
+        </CardHeader>
+
+        <CardContent className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-2">
+            <CardDescription>bar chart</CardDescription>
+            <div className="grid grid-cols-1 gap-2">
+              <ChartContainer config={chartConfig} className="h-[400px] w-full">
+                <BarChart accessibilityLayer data={chartData}>
+                  <CartesianGrid vertical={false} />
+                  <XAxis
+                    dataKey="month"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                    tickFormatter={(value) => value.slice(0, 3)}
+                  />
+                  <YAxis
+                    dataKey="desktop"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                  />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <ChartLegend content={<ChartLegendContent />} />
+                  <Bar
+                    dataKey="desktop"
+                    fill="var(--color-desktop)"
+                    radius={4}
+                  />
+                  <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+                </BarChart>
+              </ChartContainer>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-2">
+            <CardDescription>line chart</CardDescription>
+            <div className="grid grid-cols-1 gap-2">
+              <ChartContainer config={chartConfig} className="h-[400px] w-full">
+                <LineChart accessibilityLayer data={chartData}>
+                  <CartesianGrid vertical={false} />
+                  <XAxis
+                    dataKey="month"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                    tickFormatter={(value) => value.slice(0, 3)}
+                  />
+                  <YAxis
+                    dataKey="desktop"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                  />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <ChartLegend content={<ChartLegendContent />} />
+                  <Line
+                    dataKey="desktop"
+                    stroke="var(--color-desktop)"
+                    strokeWidth={2}
+                  />
+                  <Line
+                    dataKey="mobile"
+                    stroke="var(--color-mobile)"
+                    strokeWidth={2}
+                  />
+                </LineChart>
+              </ChartContainer>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-2">
+            <CardDescription>area chart</CardDescription>
+            <div className="grid grid-cols-1 gap-2">
+              <ChartContainer config={chartConfig} className="h-[400px] w-full">
+                <AreaChart
+                  accessibilityLayer
+                  data={chartData}
+                  margin={{
+                    left: 12,
+                    right: 12,
+                  }}
+                >
+                  <CartesianGrid vertical={false} />
+                  <XAxis
+                    dataKey="month"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                    tickFormatter={(value) => value.slice(0, 3)}
+                  />
+                  <YAxis
+                    dataKey="total"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                  />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <ChartLegend content={<ChartLegendContent />} />
+                  <Area
+                    dataKey="desktop"
+                    type="natural"
+                    stroke="var(--color-desktop)"
+                    strokeWidth={2}
+                    fill="var(--color-desktop)"
+                    stackId="a"
+                  />
+                  <Area
+                    dataKey="mobile"
+                    type="natural"
+                    stroke="var(--color-mobile)"
+                    strokeWidth={2}
+                    fill="var(--color-mobile)"
+                    stackId="a"
+                  />
+                </AreaChart>
+              </ChartContainer>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-2">
+            <CardDescription>pie chart</CardDescription>
+            <div className="grid grid-cols-1 gap-2">
+              <ChartContainer config={chartConfig} className="h-[400px] w-full">
+                <PieChart accessibilityLayer data={chartData}>
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <ChartLegend content={<ChartLegendContent />} />
+                  <Pie
+                    dataKey="desktop"
+                    data={chartData}
+                    fill="var(--color-desktop)"
+                  />
+                  <Pie
+                    dataKey="mobile"
+                    data={chartData}
+                    fill="var(--color-mobile)"
+                  />
+                </PieChart>
+              </ChartContainer>
             </div>
           </div>
         </CardContent>
