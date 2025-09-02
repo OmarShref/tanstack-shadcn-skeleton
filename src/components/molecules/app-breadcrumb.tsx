@@ -10,7 +10,7 @@ import {
 import { Link, useLocation } from "@tanstack/react-router";
 import { Fragment, useMemo } from "react";
 
-export function SidebarPageBreadcrumb() {
+export function AppBreadcrumb() {
   const { pathname } = useLocation();
   const segments = useMemo(() => {
     let url = "";

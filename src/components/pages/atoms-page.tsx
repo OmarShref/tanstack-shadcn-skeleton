@@ -27,11 +27,21 @@ import {
 } from "../atoms/alert-dialog";
 import { Alert, AlertDescription, AlertTitle } from "../atoms/alert";
 import { Avatar, AvatarFallback, AvatarImage } from "../atoms/avatar";
+import { Badge } from "../atoms/badge";
+import { AppBreadcrumb } from "../molecules/app-breadcrumb";
+import { Calendar } from "../atoms/calendar";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../atoms/carousel";
 
 export function AtomsPage() {
   return (
     <div className="grid grid-cols-12 gap-4">
-      {/* Buttons */}
+      {/* buttons */}
       <Card className="col-span-12 sm:col-span-6 lg:col-span-4">
         <CardHeader>
           <CardTitle>Buttons</CardTitle>
@@ -78,7 +88,7 @@ export function AtomsPage() {
           </div>
         </CardContent>
       </Card>
-      {/* Alert */}
+      {/* alert */}
       <Card className="col-span-12 sm:col-span-6 lg:col-span-4">
         <CardHeader>
           <CardTitle>Alert</CardTitle>
@@ -114,7 +124,7 @@ export function AtomsPage() {
         </CardContent>
       </Card>
 
-      {/* Accordion */}
+      {/* accordion */}
       <Card className="col-span-12 sm:col-span-6 lg:col-span-4">
         <CardHeader>
           <CardTitle>Accordion</CardTitle>
@@ -151,7 +161,7 @@ export function AtomsPage() {
         </CardContent>
       </Card>
 
-      {/* Alert Dialog */}
+      {/* alert dialog */}
       <Card className="col-span-12 sm:col-span-6 lg:col-span-4">
         <CardHeader>
           <CardTitle>Alert Dialog</CardTitle>
@@ -182,7 +192,7 @@ export function AtomsPage() {
         </CardContent>
       </Card>
 
-      {/* Skeleton */}
+      {/* skeleton */}
       <Card className="col-span-12 sm:col-span-6 lg:col-span-4">
         <CardHeader>
           <CardTitle>Skeleton</CardTitle>
@@ -210,6 +220,156 @@ export function AtomsPage() {
               <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* badge */}
+      <Card className="col-span-12 sm:col-span-6 lg:col-span-4">
+        <CardHeader>
+          <CardTitle>Badge</CardTitle>
+        </CardHeader>
+
+        <CardContent className="grid grid-cols-1 gap-2">
+          <CardDescription>Variants</CardDescription>
+          <div className="grid grid-cols-4 gap-2">
+            <Badge>default</Badge>
+            <Badge variant={"secondary"}>secondary</Badge>
+            <Badge variant={"outline"}>outline</Badge>
+            <Badge variant={"destructive"}>destructive</Badge>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* breadcrumb */}
+      <Card className="col-span-12 sm:col-span-6 lg:col-span-4">
+        <CardHeader>
+          <CardTitle>Breadcrumb</CardTitle>
+        </CardHeader>
+
+        <CardContent className="grid grid-cols-1 gap-2">
+          <CardDescription>Default</CardDescription>
+          <div className="grid grid-cols-1 gap-2">
+            <AppBreadcrumb />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* calender */}
+      <Card className="col-span-12 sm:col-span-6 lg:col-span-4">
+        <CardHeader>
+          <CardTitle>Calender</CardTitle>
+        </CardHeader>
+
+        <CardContent className="grid grid-cols-1 gap-2">
+          <CardDescription>Default</CardDescription>
+          <div className="grid grid-cols-1 gap-2">
+            <Calendar mode="range" captionLayout="dropdown" />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* carousel */}
+      <Card className="col-span-12">
+        <CardHeader>
+          <CardTitle>Carousel</CardTitle>
+        </CardHeader>
+
+        <CardContent className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-2">
+            <CardDescription>horizontal arrows out</CardDescription>
+            <div className="grid grid-cols-1 gap-2">
+              <Carousel className="mx-12 h-fit" opts={{ align: "center" }}>
+                <CarouselContent className="-ms-10">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <CarouselItem key={index} className="basis-1/2 ps-10">
+                      <Card>
+                        <CardContent className="flex aspect-[2/1] items-center justify-center">
+                          <span className="text-4xl font-semibold">
+                            {index + 1}
+                          </span>
+                        </CardContent>
+                      </Card>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-2">
+            <CardDescription>horizontal arrows in</CardDescription>
+            <div className="grid grid-cols-1 gap-2">
+              <Carousel
+                opts={{
+                  align: "start",
+                }}
+              >
+                <CarouselContent>
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <CarouselItem key={index}>
+                      <Card>
+                        <CardContent className="flex aspect-[2.3/1] items-center justify-center">
+                          <span className="text-4xl font-semibold">
+                            {index + 1}
+                          </span>
+                        </CardContent>
+                      </Card>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="start-4" />
+                <CarouselNext className="end-4" />
+              </Carousel>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-2">
+            <CardDescription>vertical arrows out</CardDescription>
+            <div className="grid grid-cols-1 gap-2">
+              <Carousel orientation="vertical" className="my-12">
+                <CarouselContent className="h-[300px]">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <CarouselItem key={index} className="h-[300px]">
+                      <Card className="h-full">
+                        <CardContent className="flex h-full items-center justify-center p-6">
+                          <span className="text-4xl font-semibold">
+                            {index + 1}
+                          </span>
+                        </CardContent>
+                      </Card>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 content-center gap-2">
+            <CardDescription>vertical arrows out</CardDescription>
+            <div className="grid grid-cols-1 gap-2">
+              <Carousel orientation="vertical">
+                <CarouselContent className="h-[350px]">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <CarouselItem key={index} className="basis-1/3">
+                      <Card className="h-full">
+                        <CardContent className="flex h-full items-center justify-center">
+                          <span className="text-4xl font-semibold">
+                            {index + 1}
+                          </span>
+                        </CardContent>
+                      </Card>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="top-4" />
+                <CarouselNext className="bottom-4" />
+              </Carousel>
+            </div>
           </div>
         </CardContent>
       </Card>
