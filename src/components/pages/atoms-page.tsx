@@ -60,22 +60,80 @@ import {
 } from "recharts";
 
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-].map((d) => ({ ...d, total: d.desktop + d.mobile }));
+  {
+    month: "January",
+    desktop: 186,
+    mobile: 80,
+    total: 266,
+  },
+  {
+    month: "February",
+    desktop: 305,
+    mobile: 200,
+    total: 505,
+  },
+  {
+    month: "March",
+    desktop: 237,
+    mobile: 120,
+    total: 357,
+  },
+  {
+    month: "April",
+    desktop: 73,
+    mobile: 190,
+    total: 263,
+  },
+  {
+    month: "May",
+    desktop: 209,
+    mobile: 130,
+    total: 339,
+  },
+  { month: "June", desktop: 214, mobile: 140, total: 354 },
+];
 
 const chartConfig = {
   desktop: {
     label: "Desktop",
-    color: "#2563eb",
+    color: "var(--chart-1)",
   },
   mobile: {
     label: "Mobile",
     color: "#60a5fa",
+  },
+} satisfies ChartConfig;
+
+const chartData2 = [
+  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
+  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
+  { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
+  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
+  { browser: "other", visitors: 90, fill: "var(--color-other)" },
+];
+const chartConfig2 = {
+  visitors: {
+    label: "Visitors",
+  },
+  chrome: {
+    label: "Chrome",
+    color: "var(--chart-1)",
+  },
+  safari: {
+    label: "Safari",
+    color: "var(--chart-2)",
+  },
+  firefox: {
+    label: "Firefox",
+    color: "var(--chart-3)",
+  },
+  edge: {
+    label: "Edge",
+    color: "var(--chart-4)",
+  },
+  other: {
+    label: "Other",
+    color: "var(--chart-5)",
   },
 } satisfies ChartConfig;
 
@@ -542,19 +600,21 @@ export function AtomsPage() {
           <div className="grid grid-cols-1 gap-2">
             <CardDescription>pie chart</CardDescription>
             <div className="grid grid-cols-1 gap-2">
-              <ChartContainer config={chartConfig} className="h-[400px] w-full">
-                <PieChart accessibilityLayer data={chartData}>
+              <ChartContainer
+                config={chartConfig2}
+                className="[&_.recharts-pie-label-text]:fill-foreground mx-auto aspect-square h-[400px] w-full pb-0"
+              >
+                <PieChart>
                   <ChartTooltip content={<ChartTooltipContent />} />
-                  <ChartLegend content={<ChartLegendContent />} />
-                  <Pie
-                    dataKey="desktop"
-                    data={chartData}
-                    fill="var(--color-desktop)"
+                  <ChartLegend
+                    content={<ChartLegendContent nameKey="browser" />}
+                    // className="-translate-y-2 flex-wrap gap-2 *:basis-1/4 *:justify-center"
                   />
                   <Pie
-                    dataKey="mobile"
-                    data={chartData}
-                    fill="var(--color-mobile)"
+                    data={chartData2}
+                    dataKey="visitors"
+                    label
+                    nameKey="browser"
                   />
                 </PieChart>
               </ChartContainer>
