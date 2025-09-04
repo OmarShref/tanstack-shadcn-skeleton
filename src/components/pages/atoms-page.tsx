@@ -299,7 +299,7 @@ const chartConfig2 = {
 export function AtomsPage() {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="grid grid-cols-12 gap-4">
+    <div className="grid grid-cols-12 gap-6">
       {/* buttons */}
       <Card className="col-span-12 sm:col-span-6 lg:col-span-4">
         <CardHeader>
@@ -1594,7 +1594,7 @@ export function AtomsPage() {
       </Card>
 
       {/* navigation manu */}
-      <Card className="z-20 col-span-12">
+      <Card className="z-20 col-span-12 hidden sm:block">
         <CardHeader>
           <CardTitle>Navigation Menu</CardTitle>
         </CardHeader>
