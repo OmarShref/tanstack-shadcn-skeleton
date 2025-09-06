@@ -1,3 +1,4 @@
+import SettingsPage from "@/components/pages/settings-page";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(sidebar)/_sidebar/settings")({
@@ -5,5 +6,5 @@ export const Route = createFileRoute("/(sidebar)/_sidebar/settings")({
 });
 
 function Settings() {
-  return <div className="flex gap-2 p-2">Hello from Settings!</div>;
+  return <SettingsPage />;
 }

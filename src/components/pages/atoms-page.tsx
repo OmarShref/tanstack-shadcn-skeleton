@@ -326,27 +326,30 @@ export function AtomsPage() {
           </div>
 
           <CardDescription>loading</CardDescription>
-          <div className="grid grid-cols-3 gap-2">
-            <Button loading>button</Button>
-            <Button loading spinnerPosition="end">
+          <div className="grid grid-cols-6 gap-2">
+            <Button loading className="col-span-2">
               button
             </Button>
-            <Button loading spinnerPosition="center">
+            <Button loading spinnerPosition="end" className="col-span-2">
               button
             </Button>
-            <Button loading loadingText="loading text">
+            <Button loading spinnerPosition="center" className="col-span-2">
+              button
+            </Button>
+            <Button loading loadingText="loading text" className="col-span-3">
               button
             </Button>
             <Button
               loading
               spinner={<Loader className="animate-spin" />}
-              className="col-span-2"
+              className="col-span-3"
             >
               custome spinner
             </Button>
           </div>
         </CardContent>
       </Card>
+
       {/* alert */}
       <Card className="col-span-12 sm:col-span-6 lg:col-span-4">
         <CardHeader>

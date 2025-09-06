@@ -5,7 +5,7 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 export const Route = createRootRoute({
   component: () => (
-    <ThemeProvider storageKey="vite-ui-theme">
+    <ThemeProvider>
       <ToastProvider>
         <Outlet />
         <TanStackRouterDevtools />
